@@ -2,4 +2,4 @@ all:
 	ls *.hs | xargs -I{} ghc {}
 
 clean:
-	ls | grep -v 'Makefile' | grep -v '.hs' | xargs rm -f 
+	rm -f *.{hi,o} hanoi validate_credit_card
