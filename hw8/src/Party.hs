@@ -23,9 +23,9 @@ treeFold acc f (Node {rootLabel = label, subForest = ns}) =
 
 nextLevel :: Employee -> [(GuestList, GuestList)] -> (GuestList, GuestList)
 nextLevel boss dogs = (funWBoss, funWoBoss)
-                    where funWBoss = foldl mappend bossList (map snd dogs)
-                          funWoBoss = mconcat (map (moreFun <$> fst <*> snd) dogs)
-                          bossList = GL [boss] (empFun boss)
+                    where funWBoss = mconcat $ bossGL:(map snd dogs)
+                          funWoBoss = mconcat $ map (moreFun <$> fst <*> snd) dogs
+                          bossGL = GL [boss] (empFun boss)
 
 maxFun :: Tree Employee -> GuestList
-maxFun empTree = (moreFun <$> fst <*> snd) $ treeFold (mempty, mempty) nextLevel empTree
+maxFun tree = moreFun <$> fst <*> snd $ treeFold (mempty, mempty) nextLevel tree
